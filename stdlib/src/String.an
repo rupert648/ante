@@ -4,7 +4,7 @@ import Std.Stream.Emit, emit, Stream, foldl, map, stream_fn
 import Std.Vec.Vec
 import Std.Char.is_whitespace, to_digit
 import Std.Math.checked_add_i32, checked_sub_i32, checked_mul_i32
-import Std.Fail.Fail, fail, fail_if
+import Std.Fail.Fail, fail, fail_if, try
 
 // TODO: All functions in this file should be a method on String, but String isn't defined in this file
 
@@ -178,3 +178,6 @@ parse_i32 (s: String) {Fail}: I32 =
         i += 1
 
     result
+
+impl try_cast_string_i32: TryCast String I32 with
+    try_cast s = try (fn f -> parse_i32 s {f})

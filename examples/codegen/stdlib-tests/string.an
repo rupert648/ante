@@ -1,4 +1,4 @@
-import Std.String.bytes, chars, substr, string_of, join, split, reverse, parse_i32
+import Std.String.bytes, chars, substr, string_of, join, split, reverse, parse_i32, try_cast_string_i32
 import Std.Stream.iter, intersperse, stream_fn, Emit, emit
 import Std.String.starts_with, ends_with, contains, trim, trim_start, trim_end
 import Std.Fail.try
@@ -82,6 +82,8 @@ test_parse () =
     println (try_parse_i32 "-2147483648")
     println (try_parse_i32 "-2147483649")
     println (try_parse_i32 "-999999999999999999999999999")
+    parsed: Maybe I32 = try_cast "321"
+    println parsed
 
 // args: --delete-binary --no-color
 // expected stdout:
@@ -142,3 +144,4 @@ test_parse () =
 // Some -2_147_483_648
 // None
 // None
+// Some 321
