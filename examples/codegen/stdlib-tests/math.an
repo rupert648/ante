@@ -1,7 +1,30 @@
 import Std.Math.sqrt, pow, floor, ceil, abs
-import Std.Math.overflowing_add_i32, overflowing_sub_i32, overflowing_mul_i32
-import Std.Math.checked_add_i32, checked_sub_i32, checked_mul_i32
-import Std.Fail.try
+import Std.Math.overflowing_add_i8, overflowing_add_i16, overflowing_add_i32, overflowing_add_i64, overflowing_add_isz
+import Std.Math.overflowing_add_u8, overflowing_add_u16, overflowing_add_u32, overflowing_add_u64, overflowing_add_usz
+import Std.Math.overflowing_sub_i8, overflowing_sub_i16, overflowing_sub_i32, overflowing_sub_i64, overflowing_sub_isz
+import Std.Math.overflowing_sub_u8, overflowing_sub_u16, overflowing_sub_u32, overflowing_sub_u64, overflowing_sub_usz
+import Std.Math.overflowing_mul_i8, overflowing_mul_i16, overflowing_mul_i32, overflowing_mul_i64, overflowing_mul_isz
+import Std.Math.overflowing_mul_u8, overflowing_mul_u16, overflowing_mul_u32, overflowing_mul_u64, overflowing_mul_usz
+import Std.Math.checked_add, checked_sub, checked_mul, checked_num_i32
+import Std.Math.checked_add_i8, checked_add_i16, checked_add_i32, checked_add_i64, checked_add_isz
+import Std.Math.checked_add_u8, checked_add_u16, checked_add_u32, checked_add_u64, checked_add_usz
+import Std.Math.checked_sub_i8, checked_sub_i16, checked_sub_i32, checked_sub_i64, checked_sub_isz
+import Std.Math.checked_sub_u8, checked_sub_u16, checked_sub_u32, checked_sub_u64, checked_sub_usz
+import Std.Math.checked_mul_i8, checked_mul_i16, checked_mul_i32, checked_mul_i64, checked_mul_isz
+import Std.Math.checked_mul_u8, checked_mul_u16, checked_mul_u32, checked_mul_u64, checked_mul_usz
+import Std.Math.checked_num_i8, checked_num_u8, checked_num_i64, checked_num_u64
+import Std.Fail.Fail, try
+
+try_i8 (f: fn Fail => I8): Maybe I8 = try f
+try_i16 (f: fn Fail => I16): Maybe I16 = try f
+try_i32 (f: fn Fail => I32): Maybe I32 = try f
+try_i64 (f: fn Fail => I64): Maybe I64 = try f
+try_isz (f: fn Fail => Isz): Maybe Isz = try f
+try_u8 (f: fn Fail => U8): Maybe U8 = try f
+try_u16 (f: fn Fail => U16): Maybe U16 = try f
+try_u32 (f: fn Fail => U32): Maybe U32 = try f
+try_u64 (f: fn Fail => U64): Maybe U64 = try f
+try_usz (f: fn Fail => Usz): Maybe Usz = try f
 
 main () =
     println <| sqrt 16.0
@@ -11,19 +34,89 @@ main () =
     println <| abs (0.0 - 7.5)
     println <| abs 5
     println <| abs (0 - 12345)
-    println (try (fn f -> checked_add_i32 2_147_483_647 1 {f}) : Maybe I32)
-    println (try (fn f -> checked_add_i32 40 2 {f}) : Maybe I32)
-    println (try (fn f -> checked_sub_i32 -2_147_483_648 1 {f}) : Maybe I32)
-    println (try (fn f -> checked_sub_i32 40 2 {f}) : Maybe I32)
-    println (try (fn f -> checked_mul_i32 50_000 50_000 {f}) : Maybe I32)
-    println (try (fn f -> checked_mul_i32 -2_147_483_648 -1 {f}) : Maybe I32)
-    println (try (fn f -> checked_mul_i32 -12 3 {f}) : Maybe I32)
+    println (try_i32 (fn f -> checked_add_i32 2_147_483_647 1 {f}))
+    println (try_i32 (fn f -> checked_add_i32 40 2 {f}))
+    println (try_i8 (fn f -> checked_add_i8 127i8 1i8 {f}))
+    println (try_i16 (fn f -> checked_add_i16 32_767i16 1i16 {f}))
+    println (try_i64 (fn f -> checked_add_i64 9_223_372_036_854_775_807i64 1i64 {f}))
+    println (try_isz (fn f -> checked_add_isz 9_223_372_036_854_775_807isz 1isz {f}))
+    println (try_u8 (fn f -> checked_add_u8 255u8 1u8 {f}))
+    println (try_u16 (fn f -> checked_add_u16 65_535u16 1u16 {f}))
+    println (try_u32 (fn f -> checked_add_u32 4_294_967_295u32 1u32 {f}))
+    println (try_u64 (fn f -> checked_add_u64 18_446_744_073_709_551_615u64 1u64 {f}))
+    println (try_usz (fn f -> checked_add_usz 18_446_744_073_709_551_615usz 1usz {f}))
+    println (try_i32 (fn f -> checked_sub_i32 -2_147_483_648 1 {f}))
+    println (try_i32 (fn f -> checked_sub_i32 40 2 {f}))
+    println (try_i8 (fn f -> checked_sub_i8 -128i8 1i8 {f}))
+    println (try_i16 (fn f -> checked_sub_i16 -32_768i16 1i16 {f}))
+    println (try_i64 (fn f -> checked_sub_i64 -9_223_372_036_854_775_808i64 1i64 {f}))
+    println (try_isz (fn f -> checked_sub_isz -9_223_372_036_854_775_808isz 1isz {f}))
+    println (try_u8 (fn f -> checked_sub_u8 0u8 1u8 {f}))
+    println (try_u16 (fn f -> checked_sub_u16 0u16 1u16 {f}))
+    println (try_u32 (fn f -> checked_sub_u32 0u32 1u32 {f}))
+    println (try_u64 (fn f -> checked_sub_u64 0u64 1u64 {f}))
+    println (try_usz (fn f -> checked_sub_usz 0usz 1usz {f}))
+    println (try_i32 (fn f -> checked_mul_i32 50_000 50_000 {f}))
+    println (try_i32 (fn f -> checked_mul_i32 -2_147_483_648 -1 {f}))
+    println (try_i32 (fn f -> checked_mul_i32 -12 3 {f}))
+    println (try_i8 (fn f -> checked_mul_i8 12i8 10i8 {f}))
+    println (try_i8 (fn f -> checked_mul_i8 64i8 2i8 {f}))
+    println (try_i16 (fn f -> checked_mul_i16 200i16 100i16 {f}))
+    println (try_i16 (fn f -> checked_mul_i16 256i16 256i16 {f}))
+    println (try_i64 (fn f -> checked_mul_i64 3_000_000_000i64 3_000_000_000i64 {f}))
+    println (try_i64 (fn f -> checked_mul_i64 4_000_000_000i64 4_000_000_000i64 {f}))
+    println (try_isz (fn f -> checked_mul_isz 3_000_000_000isz 3_000_000_000isz {f}))
+    println (try_isz (fn f -> checked_mul_isz 4_000_000_000isz 4_000_000_000isz {f}))
+    println (try_u8 (fn f -> checked_mul_u8 15u8 17u8 {f}))
+    println (try_u8 (fn f -> checked_mul_u8 16u8 16u8 {f}))
+    println (try_u16 (fn f -> checked_mul_u16 255u16 257u16 {f}))
+    println (try_u16 (fn f -> checked_mul_u16 256u16 256u16 {f}))
+    println (try_u32 (fn f -> checked_mul_u32 65_535u32 65_537u32 {f}))
+    println (try_u32 (fn f -> checked_mul_u32 65_536u32 65_536u32 {f}))
+    println (try_u64 (fn f -> checked_mul_u64 4_000_000_000u64 4_000_000_000u64 {f}))
+    println (try_u64 (fn f -> checked_mul_u64 5_000_000_000u64 5_000_000_000u64 {f}))
+    println (try_usz (fn f -> checked_mul_usz 4_000_000_000usz 4_000_000_000usz {f}))
+    println (try_usz (fn f -> checked_mul_usz 5_000_000_000usz 5_000_000_000usz {f}))
+    println (try_i32 (fn f -> checked_add 40 2 {f}))
+    println (try_i32 (fn f -> checked_sub 40 2 {f}))
+    println (try_i32 (fn f -> checked_mul -12 3 {f}))
+    println (try_i8 (fn f -> checked_add 120i8 7i8 {f}))
+    println (try_u8 (fn f -> checked_add 250u8 5u8 {f}))
+    println (try_i64 (fn f -> checked_mul 3_000_000_000i64 3_000_000_000i64 {f}))
+    println (try_u64 (fn f -> checked_mul 4_000_000_000u64 4_000_000_000u64 {f}))
+    println <| overflowing_add_i8 127i8 1i8
+    println <| overflowing_add_i16 32_767i16 1i16
     println <| overflowing_add_i32 40 2
     println <| overflowing_add_i32 2_147_483_647 1
+    println <| overflowing_add_i64 9_223_372_036_854_775_807i64 1i64
+    println <| overflowing_add_isz 9_223_372_036_854_775_807isz 1isz
+    println <| overflowing_add_u8 255u8 1u8
+    println <| overflowing_add_u16 65_535u16 1u16
+    println <| overflowing_add_u32 4_294_967_295u32 1u32
+    println <| overflowing_add_u64 18_446_744_073_709_551_615u64 1u64
+    println <| overflowing_add_usz 18_446_744_073_709_551_615usz 1usz
+    println <| overflowing_sub_i8 -128i8 1i8
+    println <| overflowing_sub_i16 -32_768i16 1i16
     println <| overflowing_sub_i32 40 2
     println <| overflowing_sub_i32 -2_147_483_648 1
+    println <| overflowing_sub_i64 -9_223_372_036_854_775_808i64 1i64
+    println <| overflowing_sub_isz -9_223_372_036_854_775_808isz 1isz
+    println <| overflowing_sub_u8 0u8 1u8
+    println <| overflowing_sub_u16 0u16 1u16
+    println <| overflowing_sub_u32 0u32 1u32
+    println <| overflowing_sub_u64 0u64 1u64
+    println <| overflowing_sub_usz 0usz 1usz
+    println <| overflowing_mul_i8 64i8 2i8
+    println <| overflowing_mul_i16 256i16 256i16
     println <| overflowing_mul_i32 -12 3
     println <| overflowing_mul_i32 -2_147_483_648 -1
+    println <| overflowing_mul_i64 4_000_000_000i64 4_000_000_000i64
+    println <| overflowing_mul_isz 4_000_000_000isz 4_000_000_000isz
+    println <| overflowing_mul_u8 16u8 16u8
+    println <| overflowing_mul_u16 256u16 256u16
+    println <| overflowing_mul_u32 65_536u32 65_536u32
+    println <| overflowing_mul_u64 5_000_000_000u64 5_000_000_000u64
+    println <| overflowing_mul_usz 5_000_000_000usz 5_000_000_000usz
 
 // args: --delete-binary --no-color
 // expected stdout:
@@ -37,13 +130,83 @@ main () =
 // None
 // Some 42
 // None
+// None
+// None
+// None
+// None
+// None
+// None
+// None
+// None
+// None
 // Some 38
 // None
 // None
+// None
+// None
+// None
+// None
+// None
+// None
+// None
+// None
+// None
 // Some -36
+// Some 120
+// None
+// Some 20000
+// None
+// Some 9000000000000000000
+// None
+// Some 9000000000000000000
+// None
+// Some 255
+// None
+// Some 65535
+// None
+// Some 4294967295
+// None
+// Some 16000000000000000000
+// None
+// Some 16000000000000000000
+// None
+// Some 42
+// Some 38
+// Some -36
+// Some 127
+// Some 255
+// Some 9000000000000000000
+// Some 16000000000000000000
+// -128, true
+// -32_768, true
 // 42, false
 // -2_147_483_648, true
+// -9_223_372_036_854_775_808, true
+// -9_223_372_036_854_775_808, true
+// 0, true
+// 0, true
+// 0, true
+// 0, true
+// 0, true
+// 127, true
+// 32767, true
 // 38, false
 // 2147483647, true
+// 9223372036854775807, true
+// 9223372036854775807, true
+// 255, true
+// 65535, true
+// 4294967295, true
+// 18446744073709551615, true
+// 18446744073709551615, true
+// -128, true
+// 0, true
 // -36, false
 // -2_147_483_648, true
+// -2446744073709551616, true
+// -2446744073709551616, true
+// 0, true
+// 0, true
+// 0, true
+// 6553255926290448384, true
+// 6553255926290448384, true
