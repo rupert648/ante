@@ -1,0 +1,23 @@
+Cargo.toml
+  s_c27f1b75a38730::t_3d435be6cc331a 27,34
+src/templates/default_main.an
+  s_c27f1b75a38730::t_0ad037eb7e24a6 1
+Cargo.lock
+  s_c27f1b75a38730::t_647e7135714340 83-84,103,105,115,126,225,315,353-358,442,474-485,673,719,753,800-805,965,992-997,1106-1118,1174,1198,1289-1299,1308-1321,1335,1337,1344,1346,1350,1388,1494,1522,1577-1585,1622-1627,1660,1681,1704
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "809cc71d6db5fd062f0c332fc4b71cdb0bd120f8",
+  "prompts": {},
+  "sessions": {
+    "s_c27f1b75a38730": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f473c-8984-7e60-ad18-32fe9bbe5924",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Rupert Carr <rupert@cloudflare.com>"
+    }
+  }
+}
